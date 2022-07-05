@@ -57,6 +57,7 @@ export const fileFilter = (
     if (
         file.mimetype === 'image/png' ||
         file.mimetype === 'image/jpg' ||
+        file.mimetype === 'image/txt' ||
         file.mimetype === 'image/jpeg'
     ) {
         callback(null, true)
