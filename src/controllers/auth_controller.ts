@@ -17,28 +17,20 @@ export const login = async ( req: Request, res: Response): Promise<Response> => 
         const conn = await connect();
 
         // Check is exists Email on database 
-        const [verifyUserdb] = await conn.query<RowDataPacket[0]>('SELECT email, passwordd, email_verified FROM users WHERE email = ?', [email]);
+        const [SignIndb] = await conn.query<RowDataPacket[0]>('SELECT email, password FROM users WHERE email = ?', [email]);
 
-        if(verifyUserdb.length == 0){
+        if(SignIndb.length == 0){
             return res.status(401).json({
                
                 message: 'Credentials are not registered'
             });
         }
 
-        const verifyUser: IVerifyUser = verifyUserdb[0];
+        const verifyUser: IVerifyUser = SignIndb[0];
 
-        // Check Email is Verified
-        if( !verifyUser.email_verified ){
-            resendCodeEmail(verifyUser.email);
-            return res.status(401).json({
-               
-                message: 'Please check your email'
-            });
-        }
 
         // Check Password
-        if( !await bcrypt.compareSync( password, verifyUser.passwordd )){
+        if( !await bcrypt.compareSync( password, verifyUser.password )){
             return res.status(401).json({
                
                 message: 'email or password incorrect'
@@ -56,7 +48,7 @@ export const login = async ( req: Request, res: Response): Promise<Response> => 
         return res.json({
            
             message: 'Welcome on  projet annuel',
-            token: token
+            token: "Bearer "+token
         });
         
     } catch (err) {

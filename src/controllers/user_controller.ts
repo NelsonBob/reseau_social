@@ -32,7 +32,6 @@ export const createUser = async ( req: Request, res: Response ): Promise<Respons
         var randomNumber = Math.floor(10000 + Math.random() * 90000);
         
         await conn.query(`CALL SP_REGISTER_USER(?,?,?,?,?,?,?);`, [ uuidv4(), fullname, username, email, pass, uuidv4(), randomNumber ]);
-        await conn.query('UPDATE users SET email_verified = ?, token_temp = ? WHERE email = ?', [true, '', req.params.email]);
         conn.end();
 
         return res.status(201).json({
