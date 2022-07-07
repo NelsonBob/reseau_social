@@ -6,9 +6,9 @@ import { uploadsPost } from '../lib/multer';
 
 const router = Router();
 
-    router.post('/post/create-new-post', [ verifyToken, uploadsPost.array('imagePosts') ], post.createNewPost);
-    router.get('/post/get-all-posts', verifyToken, post.getAllPostHome); 
-    router.get('/post/get-post-by-idPerson', verifyToken, post.getPostByIdPerson); 
+    router.post('/post/createNewPost', [ verifyToken, uploadsPost.array('imagePosts') ], post.createNewPost);
+    router.get('/post/getAllPosts', verifyToken, post.getAllPostHome); 
+    router.get('/post/getPostByIdPerson', verifyToken, post.getPostByIdPerson); 
     router.post('/post/save-post-by-user', verifyToken, post.savePostByUser); 
     router.get('/post/get-list-saved-posts', verifyToken, post.getListSavedPostsByUser); 
     router.get('/post/get-all-posts-for-search', verifyToken, post.getAllPostsForSearch);

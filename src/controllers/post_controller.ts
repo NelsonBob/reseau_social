@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
-import { connect } from '../database/connection';
-import { ILikePost, INewComment, INewPost, ISavePost, IUidComment, LikePost } from '../interfaces/post.interface';
+import { connect } from '../lib/connection';
+import { ILikePost, INewComment, INewPost, ISavePost, IUidComment, LikePost } from '../interfaces/post_interface';
 import { RowDataPacket } from 'mysql2';
 
 
@@ -9,14 +9,14 @@ export const createNewPost = async (req: Request, res: Response): Promise<Respon
 
     try {
 
-        const { comment, type_privacy}: INewPost = req.body;
+        const { comment, type_privacy, title , description}: INewPost = req.body;
         const files = req.files as  Express.Multer.File[];
 
         const conn = await connect();
 
         const uidPost = uuidv4();
 
-        await conn.query('INSERT INTO posts (uid, type_privacy, person_uid) value (?,?,?)', [uidPost, type_privacy, req.idPerson]);
+        await conn.query('INSERT INTO posts (uid, type_privacy, person_uid , title, description) value (?,?,?,?,?)', [uidPost, type_privacy, req.idPerson, title, description]);
 
         await conn.query('INSERT INTO comments (uid, comment, person_uid, post_uid) VALUE (?,?,?,?)', [ uuidv4(), comment, req.idPerson, uidPost ]);
         

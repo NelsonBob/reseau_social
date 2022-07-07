@@ -1,26 +1,32 @@
 import { Router } from 'express';
 import * as user from '../controllers/user_controller';
 import { uploadsCover, uploadsProfile } from '../lib/multer';
+import * as auth from '../controllers/auth_controller';
 import { verifyToken } from '../middleware/verify_token';
 
 const router = Router();
 
+// Authentification
+    router.post('/authLogin', auth.login);
+    router.get('/auth/renewLogin', verifyToken ,auth.renweLogin);
+
+
     router.post('/user', user.createUser );
-    router.get('/user/get-User-By-Id', verifyToken, user.getUserById );
+    router.get('/user/getUserById', verifyToken, user.getUserById );
     router.put('/user/update-cover', [ verifyToken, uploadsCover.single('cover') ], user.updatePictureCover );
     router.put('/user/update-image-profile', [ verifyToken, uploadsProfile.single('profile') ], user.updatePictureProfile );
-    router.put('/user/update-data-profile', verifyToken, user.updateProfile );
-    router.put('/user/change-password', verifyToken, user.changePassword );
-    router.put('/user/change-account-privacy', verifyToken, user.changeAccountPrivacy );
+    router.put('/user/updateDataProfile', verifyToken, user.updateProfile );
+    router.put('/user/changePassword', verifyToken, user.changePassword );
+    router.put('/user/changeAccountPrivacy', verifyToken, user.changeAccountPrivacy );
 
-    router.get('/user/get-search-user/:username', verifyToken, user.getSearchUser );
-    router.get('/user/get-another-user-by-id/:idUser', verifyToken, user.getAnotherUserById );
-    router.post('/user/add-new-friend', verifyToken, user.AddNewFollowing );
-    router.post('/user/accept-follower-request', verifyToken, user.AcceptFollowerRequest );
-    router.delete('/user/delete-following/:idUser', verifyToken, user.deleteFollowing);
-    router.get('/user/get-all-following', verifyToken, user.getAllFollowings );
-    router.get('/user/get-all-followers', verifyToken, user.getAllFollowers );
-    router.delete('/user/delete-followers/:idUser', verifyToken, user.deleteFollowers);
+    router.get('/user/getSearchUser/:username', verifyToken, user.getSearchUser );
+    router.get('/user/getAnotherUserById/:idUser', verifyToken, user.getAnotherUserById );
+    router.post('/user/addNewFriend', verifyToken, user.AddNewFollowing );
+    router.post('/user/acceptFollowerRequest', verifyToken, user.AcceptFollowerRequest );
+    router.delete('/user/deleteFollowing/:idUser', verifyToken, user.deleteFollowing);
+    router.get('/user/getAllFollowing', verifyToken, user.getAllFollowings );
+    router.get('/user/getAllFollowers', verifyToken, user.getAllFollowers );
+    router.delete('/user/deleteFollowers/:idUser', verifyToken, user.deleteFollowers);
     
 
 

@@ -4,8 +4,8 @@ import fs from 'fs-extra';
 import bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
 import { RowDataPacket } from 'mysql2';
-import { connect } from '../database/connection';
-import { IChangePassword, IUpdateProfile, User, INewFriend, IAcceptFollowerRequest } from '../interfaces/user.interface';
+import { connect } from '../lib/connection';
+import { IChangePassword, IUpdateProfile, User, INewFriend, IAcceptFollowerRequest } from '../interfaces/user_interface';
 
 
 

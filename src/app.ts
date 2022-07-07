@@ -3,7 +3,6 @@ import cors from 'cors';
 import path from 'path';
 import { createServer, Server } from 'http';
 import routesUser from './routes/user.routes';
-import routesAuth from './routes/auth.routes';
 import routesPost from './routes/post.routes';
 import routesNotifications from './routes/notifications.routes';
 import routesChat from './routes/chat.routes';
@@ -18,7 +17,6 @@ export class App {
 
     private apiRoutes = {
         user: '/api',
-        auth: '/api',
         post: '/api',
         notification: '/api',
         story: '/api',
@@ -46,7 +44,6 @@ export class App {
 
     private routes(){
         this.app.use( this.apiRoutes.user, routesUser );
-        this.app.use( this.apiRoutes.auth, routesAuth );
         this.app.use( this.apiRoutes.post, routesPost );
         this.app.use( this.apiRoutes.notification, routesNotifications );
         this.app.use( this.apiRoutes.chat, routesChat );
@@ -58,7 +55,7 @@ export class App {
     async listen(port: string): Promise<void> {
 
         await this.httpServer.listen( port );
-        console.log(`SERVER RUN ON PORT ${ port }`)
+        console.log(`SERVER RUN ON PORT Welcome  ${ port }`)
     }
 
 }
