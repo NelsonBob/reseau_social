@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { RowDataPacket } from 'mysql2';
 import bcrypt from 'bcrypt-nodejs';
-import { SignIn } from "../interfaces/login.interface";
-import { connect } from '../database/connection';
+import { SignIn } from "../interfaces/user_interface";
+import { connect } from '../lib/connection';
 import { generateJsonWebToken } from '../lib/generate_jwt';
 import { IVerifyUser } from '../interfaces/user_interface';
 
