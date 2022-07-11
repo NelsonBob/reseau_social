@@ -19,7 +19,6 @@ export class App {
         user: '/api',
         post: '/api',
         notification: '/api',
-        story: '/api',
         chat: '/api',
     }
 

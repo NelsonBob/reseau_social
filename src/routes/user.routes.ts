@@ -13,8 +13,8 @@ const router = Router();
 
     router.post('/user', user.createUser );
     router.get('/user/getUserById', verifyToken, user.getUserById );
-    router.put('/user/update-cover', [ verifyToken, uploadsCover.single('cover') ], user.updatePictureCover );
-    router.put('/user/update-image-profile', [ verifyToken, uploadsProfile.single('profile') ], user.updatePictureProfile );
+    router.put('/user/updatePictureCover', [ verifyToken, uploadsCover.single('cover') ], user.updatePictureCover );
+    router.put('/user/updatePictureProfile', [ verifyToken, uploadsProfile.single('profile') ], user.updatePictureProfile );
     router.put('/user/updateDataProfile', verifyToken, user.updateProfile );
     router.put('/user/changePassword', verifyToken, user.changePassword );
     router.put('/user/changeAccountPrivacy', verifyToken, user.changeAccountPrivacy );
@@ -24,7 +24,7 @@ const router = Router();
     router.post('/user/addNewFriend', verifyToken, user.AddNewFollowing );
     router.post('/user/acceptFollowerRequest', verifyToken, user.AcceptFollowerRequest );
     router.delete('/user/deleteFollowing/:idUser', verifyToken, user.deleteFollowing);
-    router.get('/user/getAllFollowing', verifyToken, user.getAllFollowings );
+    router.get('/user/getAllFollowings', verifyToken, user.getAllFollowings );
     router.get('/user/getAllFollowers', verifyToken, user.getAllFollowers );
     router.delete('/user/deleteFollowers/:idUser', verifyToken, user.deleteFollowers);
     

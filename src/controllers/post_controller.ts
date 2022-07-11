@@ -15,10 +15,14 @@ export const createNewPost = async (req: Request, res: Response): Promise<Respon
         const conn = await connect();
 
         const uidPost = uuidv4();
+        const post_save_uids = uuidv4();
 
         await conn.query('INSERT INTO posts (uid, type_privacy, person_uid , title, description) value (?,?,?,?,?)', [uidPost, type_privacy, req.idPerson, title, description]);
 
         await conn.query('INSERT INTO comments (uid, comment, person_uid, post_uid) VALUE (?,?,?,?)', [ uuidv4(), comment, req.idPerson, uidPost ]);
+
+        await conn.query('INSERT INTO post_save(post_save_uid, post_uid, person_uid) VALUE (?,?,?)', [ post_save_uids , uidPost, req.idPerson]);
+
         
         files.forEach( async img => {
             await conn.query('INSERT INTO images_post (uid, image, post_uid) VALUES (?,?,?)', [ uuidv4(), img.filename, uidPost ]);
@@ -186,7 +190,6 @@ export const likeOrUnLikePost = async (req: Request, res: Response): Promise<Res
             conn.end();
 
             return res.json({
-               
                 message: 'unlike',
             });
 
@@ -199,7 +202,6 @@ export const likeOrUnLikePost = async (req: Request, res: Response): Promise<Res
         conn.end();
 
         return res.json({
-           
             message: 'like',
         });
 
@@ -212,7 +214,7 @@ export const likeOrUnLikePost = async (req: Request, res: Response): Promise<Res
 
 }
 
-export const getCommentsByIdPost = async (req: Request, res: Response): Promise<Response> => {
+export const getListCommentsByIdPost = async (req: Request, res: Response): Promise<Response> => {
 
     try {
 
