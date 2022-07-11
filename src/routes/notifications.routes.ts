@@ -4,7 +4,7 @@ import { verifyToken } from '../middleware/verify_token';
 
 const router = Router();
 
-    router.get('/notification/get-notification-by-user', verifyToken, noti.getNotificationsByUser );
+    router.get('/notification/getNotificationsByUser', verifyToken, noti.getNotificationsByUser );
 
 
 

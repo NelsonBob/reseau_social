@@ -27,3 +27,15 @@ export interface IAcceptFollowerRequest {
     uidFriend: string,
     uidNotification: string
 }
+export interface SignIn { 
+    email: string;
+    password: string;
+}
+
+
+export interface IVerifyUser {
+
+    email: string;
+    password: string;
+
+}

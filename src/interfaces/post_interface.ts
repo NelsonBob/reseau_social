@@ -3,6 +3,8 @@ export interface INewPost {
     comment: string,
     user_uid: string,
     type_privacy: string
+    title: string,
+    description: string
 }
 
 export interface ISavePost {

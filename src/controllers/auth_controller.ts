@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt-nodejs';
 import { SignIn } from "../interfaces/login.interface";
 import { connect } from '../database/connection';
 import { generateJsonWebToken } from '../lib/generate_jwt';
-import { IVerifyUser } from '../interfaces/userdb';
+import { IVerifyUser } from '../interfaces/user_interface';
 
 
 

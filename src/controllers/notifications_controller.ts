@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { connect } from '../database/connection';
+import { connect } from '../lib/connection';
 import { RowDataPacket } from 'mysql2';
 
 

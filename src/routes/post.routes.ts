@@ -6,18 +6,18 @@ import { uploadsPost } from '../lib/multer';
 
 const router = Router();
 
-    router.post('/post/create-new-post', [ verifyToken, uploadsPost.array('imagePosts') ], post.createNewPost);
-    router.get('/post/get-all-posts', verifyToken, post.getAllPostHome); 
-    router.get('/post/get-post-by-idPerson', verifyToken, post.getPostByIdPerson); 
-    router.post('/post/save-post-by-user', verifyToken, post.savePostByUser); 
-    router.get('/post/get-list-saved-posts', verifyToken, post.getListSavedPostsByUser); 
-    router.get('/post/get-all-posts-for-search', verifyToken, post.getAllPostsForSearch);
-    router.get('/post/get-like', verifyToken, post.getLikes);
-    router.post('/post/like-or-unlike-post', verifyToken, post.likeOrUnLikePost);
-    router.get('/post/get-comments-by-idpost/:uidPost', verifyToken, post.getCommentsByIdPost );
-    router.post('/post/add-new-comment', verifyToken, post.addNewComment);
-    router.put('/post/like-or-unlike-comment', verifyToken, post.likeOrUnLikeComment);
-    router.get('/post/get-all-post-by-user-id', verifyToken, post.getAllPostByUserID );
+    router.post('/post/createNewPost', [ verifyToken, uploadsPost.array('imagePosts') ], post.createNewPost);
+    router.get('/post/getAllPosts', verifyToken, post.getAllPostHome); 
+    router.get('/post/getPostByIdPerson', verifyToken, post.getPostByIdPerson); 
+    router.post('/post/savePostByUser', verifyToken, post.savePostByUser); 
+    router.get('/post/getListSavedPostsByUser', verifyToken, post.getListSavedPostsByUser); 
+    router.get('/post/getAllPostsForSearch', verifyToken, post.getAllPostsForSearch);
+    router.get('/post/getLikes', verifyToken, post.getLikes);
+    router.post('/post/likeOrUnLikePost', verifyToken, post.likeOrUnLikePost);
+    router.get('/post/getCommentByIdPost/:uidPost', verifyToken, post.getListCommentsByIdPost );
+    router.post('/post/addNewComment', verifyToken, post.addNewComment);
+    router.put('/post/likeOrUnLikeComment', verifyToken, post.likeOrUnLikeComment);
+    router.get('/post/getAllPostByUserID', verifyToken, post.getAllPostByUserID );
 
 
 export default router;

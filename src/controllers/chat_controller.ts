@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
-import { connect } from '../database/connection';
+import { connect } from '../lib/connection';
 import { RowDataPacket } from 'mysql2';
 
 
