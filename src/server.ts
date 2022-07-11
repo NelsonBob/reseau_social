@@ -1,7 +1,7 @@
 import { App } from './app';
 import { config } from 'dotenv';
 
-const main = async() => {
+export const main = async() => {
 
     config();
 
@@ -9,5 +9,3 @@ const main = async() => {
     await app.listen(process.env.PORT || '3000');
 
 }
-
-main();
