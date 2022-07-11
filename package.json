@@ -4,7 +4,7 @@
   "description": "projet annuel",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/server.js",
+    "start": "node /dist/server.js",
     "start:prod": "npm init -y && npm install typescript --save-dev && npm run build && node ./dist/src/server.js",
     "start:nodemon": "./node_modules/nodemon/bin/nodemon.js",
     "build": "npx tsc",
