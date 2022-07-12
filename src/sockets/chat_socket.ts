@@ -1,50 +1,48 @@
-import { Server } from 'socket.io';
-import { addNewMessage, InsertListChat, updateLastMessage } from '../controllers/chat_controller';
-import { updateOfflineUser, updateOnlineUser } from '../controllers/user_controller';
-import { verifyTokenSocket } from '../middleware/verify_token';
+import { Server } from "socket.io";
+import {
+  addNewMessage,
+  InsertListChat,
+  updateLastMessage,
+} from "../controllers/chat_controller";
+import {
+  updateOfflineUser,
+  updateOnlineUser,
+} from "../controllers/user_controller";
+import { verifyTokenSocket } from "../middleware/verify_token";
 
+export const socketChatMessages = (io: Server) => {
+  const nameSpaceChat = io.of("/socket-chat-message");
 
-export const socketChatMessages = ( io: Server ) => {
+  nameSpaceChat.on("connection", async (client) => {
+    const [verify, uidPerson] = verifyTokenSocket(
+      `client.handshake.headers['Authorization']`
+    );
 
+    if (!verify) {
+      return client.disconnect();
+    }
 
-    const nameSpaceChat = io.of('/socket-chat-message');
+    console.log("USER CONECTED");
 
+    await updateOnlineUser(uidPerson);
 
-    nameSpaceChat.on('connection', async client => {
+    client.join(uidPerson);
 
-        const [ verify, uidPerson ] = verifyTokenSocket( `client.handshake.headers['Authorization']`);
+    client.on("message-personal", async (payload) => {
+      console.log(payload);
 
-        if( !verify ) { return client.disconnect(); }
+      await InsertListChat(payload.from, payload.to);
 
-        console.log('USER CONECTED');
+      await updateLastMessage(payload.to, payload.from, payload.message);
 
-        await updateOnlineUser( uidPerson );
+      await addNewMessage(payload.from, payload.to, payload.message);
 
-
-        client.join( uidPerson );
-
-        client.on('message-personal', async payload => {
-
-            console.log(payload);
-
-            await InsertListChat(payload.from, payload.to);
-
-            await updateLastMessage(payload.to, payload.from, payload.message);
-
-            await addNewMessage(payload.from, payload.to, payload.message);
-            
-            nameSpaceChat.to( payload.to ).emit('message-personal', payload );
-        });
-
-
-
-        client.on('disconnect', async _ => {
-
-            await updateOfflineUser( uidPerson );
-            console.log('USER DISCONNECT');
-
-        });
-
+      nameSpaceChat.to(payload.to).emit("message-personal", payload);
     });
 
-}
+    client.on("disconnect", async (_) => {
+      await updateOfflineUser(uidPerson);
+      console.log("USER DISCONNECT");
+    });
+  });
+};
