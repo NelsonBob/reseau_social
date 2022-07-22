@@ -64,8 +64,7 @@ export const getAllPostHome = async (
     const conn = await connect();
 
     const postdb = await conn.query<RowDataPacket[]>(
-      `CALL SP_GET_ALL_POSTS_HOME(?);`,
-      [req.idPerson]
+      `CALL SP_GET_ALL_POSTS_HOME();`
     );
 
     const imagesdb = postdb[0][0].testing;
@@ -83,6 +82,35 @@ export const getAllPostHome = async (
     });
   }
 };
+
+export const getPostByIdPost = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  try {
+    const conn = await connect();
+
+    const postdb = await conn.query<RowDataPacket[]>(
+      `CALL SP_GET_POST_BY_ID(?);`,
+      [req.params.uidPost]
+    );
+
+    const imagesdb = postdb[0][0].testing;
+
+    await conn.end();
+
+    return res.json({
+      message: "Get Post By Id",
+      posts: postdb[0][0],
+      imagesdb,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: err,
+    });
+  }
+};
+
 
 export const getPostByIdPerson = async (
   req: Request,

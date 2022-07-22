@@ -10,7 +10,8 @@ router.post(
   [verifyToken, uploadsPost.array("imagePosts")],
   post.createNewPost
 );
-router.get("/post/getAllPosts", verifyToken, post.getAllPostHome);
+router.get("/post/getAllPosts",  post.getAllPostHome);
+router.get("/post/getPostById/:uidPost", post.getPostByIdPost);
 router.get("/post/getPostByIdPerson", verifyToken, post.getPostByIdPerson);
 router.post("/post/savePostByUser", verifyToken, post.savePostByUser);
 router.get(
