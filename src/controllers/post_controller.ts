@@ -48,6 +48,7 @@ export const createNewPost = async (
 
     return res.json({
       message: "Posted",
+      post_uid: uidPost
     });
   } catch (err) {
     return res.status(500).json({
