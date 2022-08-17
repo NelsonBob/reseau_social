@@ -25,6 +25,7 @@ router.get(
   post.getAllPostsForSearch
 );
 router.get("/post/getLikes", verifyToken, post.getLikes);
+router.get("/post/getLikeUserByPost", verifyToken, post.getLikeUserByPost);
 router.post("/post/likeOrUnLikePost", verifyToken, post.likeOrUnLikePost);
 router.get(
   "/post/getCommentByIdPost/:uidPost",

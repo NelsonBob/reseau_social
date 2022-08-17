@@ -5,7 +5,7 @@ import { createServer, Server } from "http";
 import routesUser from "./routes/user.routes";
 import routesPost from "./routes/post.routes";
 import routesNotifications from "./routes/notifications.routes";
-import routesChat from "./routes/chat.routes";
+import routesChallenges from "./routes/challenge.routes";
 
 export class App {
   private app: Application;
@@ -15,7 +15,7 @@ export class App {
     user: "/api",
     post: "/api",
     notification: "/api",
-    chat: "/api",
+    challenge: "/api",
   };
 
   constructor() {
@@ -40,7 +40,7 @@ export class App {
     this.app.use(this.apiRoutes.user, routesUser);
     this.app.use(this.apiRoutes.post, routesPost);
     this.app.use(this.apiRoutes.notification, routesNotifications);
-    this.app.use(this.apiRoutes.chat, routesChat);
+    this.app.use(this.apiRoutes.challenge, routesChallenges);
   }
 
   async listen(port: string): Promise<void> {

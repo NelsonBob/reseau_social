@@ -406,7 +406,35 @@ export const getLikes = async (
 
     return res.json({
       message: "Get All likes",
-      posts: Likedb,
+      posts: Likedb[0][0],
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: err,
+    });
+  }
+};
+
+export const getLikeUserByPost = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  try {
+ 
+    const { uidPost}: ILikePost = req.body;
+
+    const conn = await connect();
+
+    const isLikedb = await conn.query<RowDataPacket[]>(
+      "SELECT COUNT(uid_likes) AS uid_likes FROM likes WHERE user_uid = ? AND post_uid = ? LIMIT 1",
+      [req.idPerson, uidPost]
+    );
+
+    conn.end();
+
+    return res.json({
+      message: "is like a post",
+      isLike: isLikedb[0][0],
     });
   } catch (err) {
     return res.status(500).json({
