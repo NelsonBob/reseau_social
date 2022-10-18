@@ -424,17 +424,15 @@ export const getLikeUserByPost = async (
     const { uidPost}: ILikePost = req.body;
 
     const conn = await connect();
-
     const isLikedb = await conn.query<RowDataPacket[]>(
-      "SELECT COUNT(uid_likes) AS uid_likes FROM likes WHERE user_uid = ? AND post_uid = ? LIMIT 1",
-      [req.idPerson, uidPost]
+      `CALL SP_GET_LIKE_POST_BY_USER(?,?);`,
+      [uidPost,req.idPerson]
     );
 
     conn.end();
 
     return res.json({
-      message: "is like a post",
-      isLike: isLikedb[0][0],
+      isLikedb: isLikedb[0][0],
     });
   } catch (err) {
     return res.status(500).json({
