@@ -1,11 +1,9 @@
-import { App } from './app';
-import { config } from 'dotenv';
+import { App } from "./app";
+import { config } from "dotenv";
 
-export const main = async() => {
+export const main = async () => {
+  config();
 
-    config();
-
-    const app = new App();
-    await app.listen(process.env.PORT || '3000');
-
-}
+  const app = new App();
+  await app.listen(process.env.PORT || "3000");
+};
